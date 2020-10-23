@@ -1,0 +1,19 @@
+[package]
+name = "image_bot"
+version = "0.1.0"
+authors = ["Paul Lesur <git@lesurpaul.fr>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+serenity = { version = "0.9.0-rc.2", default-features = false, features = ["client", "gateway", "rustls_backend", "model"] }
+tokio = { version = "0.2", features = ["macros"] }
+reqwest = { version = "0.10.8", features = ["json"]}
+
+thiserror = "1.0"
+async-trait = "0.1.41"
+
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.5"
