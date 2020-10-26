@@ -29,7 +29,8 @@ impl ImageSearcher for GoogleImageSeacher {
             ("start", "1"),
             ("num", "1"),
             ("q", query),
-            ("imgSize", "medium"),
+            ("safe", "off"),
+            ("searchType", "image"),
             ("key", &self.api_key),
             ("cx", &self.cx_id),
         ];
@@ -40,12 +41,12 @@ impl ImageSearcher for GoogleImageSeacher {
             .query(&params);
         let out = req.send().await.unwrap().json::<Value>().await.unwrap();
 
-        match &out["items"][0]["pagemap"]["cse_thumbnail"][0]["src"] {
+        match &out["items"][0]["link"] {
             Value::String(v) => Ok(v.clone()),
             not_a_str => {
                 return Err(ImageBotError::Api(
                     format!("Expected a string, got a '{}'", not_a_str).to_owned(),
-                ))
+                ));
             }
         }
     }
